@@ -18,7 +18,6 @@ def load_assets():
     # Detect Country Column automatically
     possible_names = ['Country Name', 'Country', 'Nation', 'country', 'name']
     country_col = next((col for col in df.columns if col in possible_names), df.columns[0])
-    
     return model, df, country_col
 
 model, df, country_col = load_assets()
@@ -66,7 +65,7 @@ st.markdown("""
     div.stButton > button:hover {
         background-color: #ffffff !important;
         color: #3b82f6 !important;
-        border: 2px solid #ffffff !important;
+        border: 2px solid #3b82f6 !important;
         transform: translateY(-2px);
     }
     
@@ -110,7 +109,8 @@ st.markdown('<h1 class="main-title">PULSEPRO AI SIMULATOR</h1>', unsafe_allow_ht
 
 # 5. COUNTRY LOGIC
 countries = sorted(df[country_col].unique().tolist())
-selected_country = st.selectbox("🌐 Select a Nation to Analyze:", ["Select the country"] + countries)
+# CHANGED: Match the default option with the IF check below
+selected_country = st.selectbox("🌐 Select a Nation to Analyze:", ["Manual Simulation"] + countries)
 
 numeric_df = df.select_dtypes(include=[np.number])
 pillar_names = numeric_df.columns.tolist()
@@ -119,6 +119,7 @@ if selected_country != "Manual Simulation":
     country_row = df[df[country_col] == selected_country].iloc[0]
     vals = [float(country_row[col]) for col in pillar_names]
 else:
+    # Default values for Manual mode
     vals = [50.0] * 12
 
 def get_val(index):
@@ -150,9 +151,14 @@ with tab3:
 
 # 7. PREDICTION & SIDEBAR
 if st.button("🚀 EXECUTE AI ANALYSIS", use_container_width=True):
+    # Prepare input
     input_features = np.array([[p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12]])
+    
+    # Run prediction and clip to realistic bounds
     raw_prediction = model.predict(input_features)[0]
-    prediction = np.clip(raw_prediction, -15.0, 15.0) # Keeps it between -15% and +15%
+    prediction = np.clip(raw_prediction, -15.0, 15.0) 
+    
+    # Calculate overall score
     prosperity_score = np.mean(input_features)
 
     st.markdown(f"""
@@ -166,8 +172,9 @@ if st.button("🚀 EXECUTE AI ANALYSIS", use_container_width=True):
         </div>
     """, unsafe_allow_html=True)
 
-# SIDEBAR FOOTER (Black Text on White)
+# SIDEBAR FOOTER
 st.sidebar.markdown("### 📊 Project Info")
 st.sidebar.write("This AI simulator analyzes the correlation between economic freedom and national wealth.")
 st.sidebar.markdown("---")
-st.sidebar.write("B.Tech Final Year | AIML ")
+st.sidebar.write("Developed by: **P. Santhosh**")
+st.sidebar.write("B.Tech Final Year | AIML")
