@@ -68,6 +68,11 @@ st.markdown("""
         border: 2px solid #3b82f6 !important;
         transform: translateY(-2px);
     }
+    /* Change from #ffffff to #f8fafc */
+[data-testid="stSidebar"] {
+    background-color: #f8fafc !important; 
+    border-right: 1px solid #e2e8f0;
+}
     
     .main-title {
         font-size: 3.5rem; font-weight: 800; text-align: center;
