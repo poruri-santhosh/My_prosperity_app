@@ -110,7 +110,7 @@ st.markdown('<h1 class="main-title">PULSEPRO AI SIMULATOR</h1>', unsafe_allow_ht
 
 # 5. COUNTRY LOGIC
 countries = sorted(df[country_col].unique().tolist())
-selected_country = st.selectbox("🌐 Select a Nation to Analyze:", ["Manual Simulation"] + countries)
+selected_country = st.selectbox("🌐 Select a Nation to Analyze:", ["Select the country"] + countries)
 
 numeric_df = df.select_dtypes(include=[np.number])
 pillar_names = numeric_df.columns.tolist()
@@ -170,5 +170,4 @@ if st.button("🚀 EXECUTE AI ANALYSIS", use_container_width=True):
 st.sidebar.markdown("### 📊 Project Info")
 st.sidebar.write("This AI simulator analyzes the correlation between economic freedom and national wealth.")
 st.sidebar.markdown("---")
-st.sidebar.write("Developed by: **P. Santhosh**")
-st.sidebar.write("B.Tech Final Year | Technical Trainer @ CodeTantra")
+st.sidebar.write("B.Tech Final Year | AIML ")
