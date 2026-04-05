@@ -11,10 +11,11 @@
     <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-4xl z-50 glass-panel px-8 py-4 flex justify-between items-center">
         <div class="font-extrabold text-xl tracking-tighter text-white">PULSE<span class="text-blue-500">PRO</span></div>
         <div class="flex gap-8 text-sm font-semibold uppercase tracking-widest text-slate-400">
-    <a href="{{ url_for('index') }}" class="text-blue-400">Story</a>
-    <a href="{{ url_for('analytics') }}" class="hover:text-white transition">Analytics</a>
-    <a href="{{ url_for('methodology') }}" class="hover:text-white transition">Tech</a>
-</div>
+            <a href="{{ url_for('index') }}" class="text-blue-400">Story</a>
+            <a href="#team" class="hover:text-white transition">Team</a>
+            <a href="{{ url_for('analytics') }}" class="hover:text-white transition">Analytics</a>
+            <a href="{{ url_for('methodology') }}" class="hover:text-white transition">Tech</a>
+        </div>
     </nav>
 
     <header class="h-screen flex flex-col justify-center items-center text-center px-6">
@@ -25,7 +26,7 @@
     </header>
 
     <main id="viz" class="max-w-7xl mx-auto px-6 pb-24 space-y-20">
-        <div class="dashboard-card overflow-hidden" style="height: 800px;">
+        <div class="dashboard-card overflow-hidden" style="height: 800px; position: relative;">
             <div class="skeleton-overlay absolute inset-0 z-20 flex items-center justify-center bg-slate-900">
                 <div class="loader"></div>
             </div>
@@ -37,7 +38,7 @@
             </div>
         </div>
 
-        <div class="dashboard-card overflow-hidden" style="height: 1200px;">
+        <div class="dashboard-card overflow-hidden" style="height: 1200px; position: relative;">
             <div class="skeleton-overlay absolute inset-0 z-20 flex items-center justify-center bg-slate-900">
                 <div class="loader"></div>
             </div>
@@ -48,19 +49,59 @@
                 </object>
             </div>
         </div>
+
+        <section id="team" class="pt-20 border-t border-slate-800">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black text-white mb-4">Measuring the Pulse of Prosperity</h2>
+                <p class="max-w-3xl mx-auto text-slate-400 text-lg">
+                    This project focuses on analyzing the Economic Freedom Index to understand global economic performance using advanced data analytics and machine learning techniques.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl hover:border-blue-500 transition-all text-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png" class="w-20 h-20 mx-auto mb-4 border-2 border-yellow-500 rounded-full p-1">
+                    <div class="text-white font-bold text-lg">Umme Salma</div>
+                    <div class="text-yellow-500 text-sm font-semibold uppercase mb-2">Data Analyst</div>
+                    <p class="text-slate-400 text-xs">Visualization Expert (Dashboard Lead)</p>
+                </div>
+
+                <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl hover:border-blue-500 transition-all text-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6997/6997674.png" class="w-20 h-20 mx-auto mb-4 border-2 border-yellow-500 rounded-full p-1">
+                    <div class="text-white font-bold text-lg">P. Saran</div>
+                    <div class="text-yellow-500 text-sm font-semibold uppercase mb-2">Frontend Developer</div>
+                    <p class="text-slate-400 text-xs">Web Interface Developer</p>
+                </div>
+
+                <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl hover:border-blue-500 transition-all text-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6997/6997674.png" class="w-20 h-20 mx-auto mb-4 border-2 border-yellow-500 rounded-full p-1">
+                    <div class="text-white font-bold text-lg">P. Santhosh</div>
+                    <div class="text-yellow-500 text-sm font-semibold uppercase mb-2">ML Engineer</div>
+                    <p class="text-slate-400 text-xs">(Model Development Lead)</p>
+                </div>
+
+                <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl hover:border-blue-500 transition-all text-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6997/6997674.png" class="w-20 h-20 mx-auto mb-4 border-2 border-yellow-500 rounded-full p-1">
+                    <div class="text-white font-bold text-lg">N. Vishnuvardhan</div>
+                    <div class="text-yellow-500 text-sm font-semibold uppercase mb-2">Data Engineer</div>
+                    <p class="text-slate-400 text-xs">(Data Collection & Preprocessing Lead)</p>
+                </div>
+            </div>
+        </section>
         
     </main>
+
     <script src="https://public.tableau.com/javascripts/api/viz_v1.js"></script>
 
-<script>
-    // Quick fix to hide the loader once the page loads
-    window.onload = function() {
-        document.querySelectorAll('.skeleton-overlay').forEach(el => {
-            el.style.display = 'none';
-        });
-    };
-</script>
+    <script>
+        // Hide the loader once the page loads
+        window.onload = function() {
+            document.querySelectorAll('.skeleton-overlay').forEach(el => {
+                el.style.display = 'none';
+            });
+        };
+    </script>
 
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

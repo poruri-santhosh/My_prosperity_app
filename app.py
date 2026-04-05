@@ -2,53 +2,72 @@ from flask import Flask, render_template, jsonify, request
 import pandas as pd
 import pickle
 import numpy as np
+import os
 
 app = Flask(__name__)
 
-# 1. LOAD YOUR MODEL AT STARTUP
-# This is faster and uses the model you already built
+# 1. LOAD THE MODEL
+# We use 'rb' (read binary) to load the saved pickle file
+model = None
 try:
-    with open('prosperity_model.pkl', 'rb') as f:
+    model_path = os.path.join(os.path.dirname(__file__), 'prosperity_model.pkl')
+    with open(model_path, 'rb') as f:
         model = pickle.load(f)
+    print("✅ Model loaded successfully!")
 except Exception as e:
-    print(f"Error loading model: {e}")
-    model = None
+    print(f"❌ Error loading model: {e}")
 
 # --- Page Routes ---
+
 @app.route('/')
 def index():
-    # Flask looks for this in the 'templates' folder
+    """Main Landing Page with Tableau Stories"""
     return render_template('index.html')
 
 @app.route('/analytics')
 def analytics():
+    """Deep Dive Analytics Page"""
     return render_template('analytics.html')
 
 @app.route('/methodology')
 def methodology():
+    """Technical Details Page"""
     return render_template('methodology.html')
 
 # --- ML API Route ---
+
 @app.route('/api/predict', methods=['POST'])
 def predict():
+    """
+    API endpoint that receives JSON data from the frontend,
+    runs it through the ML model, and returns a prediction.
+    """
+    if model is None:
+        return jsonify({"status": "error", "message": "Model not initialized on server"})
+
     try:
-        # 1. Get input from the web form
+        # Get input data from the JavaScript 'fetch' request
         data = request.json
         
-        # 2. Convert dictionary to the correct array format for ML
-        # Use the same features you used in your Notebook!
-        input_data = np.array([list(data.values())])
+        # Convert dictionary values to a list, then to a 2D numpy array
+        # IMPORTANT: The order of keys in your JS must match the training features
+        features = np.array([list(data.values())])
         
-        # 3. Predict using the LOADED model
-        prediction = model.predict(input_data)[0]
+        # Generate prediction
+        prediction = model.predict(features)[0]
         
         return jsonify({
             "status": "success",
-            "prediction": round(prediction, 2)
+            "prediction": round(float(prediction), 2)
         })
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
+# --- Health Check (For Render Deployment) ---
+@app.route('/status')
+def status():
+    return jsonify({"status": "online", "model_loaded": model is not None})
+
 if __name__ == '__main__':
-    # Running on port 5000
+    # Local development settings
     app.run(debug=True, port=5000)
