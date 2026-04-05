@@ -151,7 +151,8 @@ with tab3:
 # 7. PREDICTION & SIDEBAR
 if st.button("🚀 EXECUTE AI ANALYSIS", use_container_width=True):
     input_features = np.array([[p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12]])
-    prediction = model.predict(input_features)[0]
+    raw_prediction = model.predict(input_features)[0]
+prediction = np.clip(raw_prediction, -15.0, 15.0) # Keeps it between -15% and +15%
     prosperity_score = np.mean(input_features)
 
     st.markdown(f"""
