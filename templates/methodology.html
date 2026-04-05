@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Engineering | Pulse of Prosperity</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-[#020617] text-slate-100">
+
+    <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="{{ url_for('index') }}" class="font-extrabold tracking-tighter text-xl">PULSE<span class="text-blue-500">PRO</span></a>
+            <div class="flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-400">
+    <a href="{{ url_for('index') }}" class="hover:text-white transition">Story</a>
+    <a href="{{ url_for('analytics') }}" class="hover:text-white transition">Analytics</a>
+    <a href="{{ url_for('methodology') }}" class="text-blue-400 transition">Tech Stack</a>
+</div>
+        </div>
+    </nav>
+
+    <main class="pt-32 max-w-5xl mx-auto px-6 pb-20">
+        
+        <header class="text-center mb-20">
+            <h1 class="text-5xl font-black mb-4">Technical <span class="text-gradient">Architecture</span></h1>
+            <p class="text-slate-400 max-w-2xl mx-auto italic">Developing a predictive pipeline for global prosperity metrics.</p>
+        </header>
+
+        <div class="relative space-y-12">
+            <div class="absolute left-[31px] top-0 bottom-0 w-px bg-slate-800 hidden md:block"></div>
+
+            <div class="flex flex-col md:flex-row gap-8 relative">
+                <div class="w-16 h-16 rounded-2xl bg-blue-600/20 border border-blue-500 flex items-center justify-center z-10 bg-[#020617]">
+                    <i class="fab fa-python text-2xl text-blue-400"></i>
+                </div>
+                <div class="flex-1 glass-panel p-8">
+                    <h3 class="text-xl font-bold mb-2">Ingestion & Preprocessing</h3>
+                    <p class="text-slate-400 text-sm mb-4">Raw data from the Heritage Foundation was cleaned using **Pandas**. I handled 180+ entries, managing null values in GDP metrics and normalizing scores for territorial variations.</p>
+                    <div class="flex gap-2">
+                        <span class="tech-tag">NumPy</span> <span class="tech-tag">Pandas</span> <span class="tech-tag">ETL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8 relative">
+                <div class="w-16 h-16 rounded-2xl bg-purple-600/20 border border-purple-500 flex items-center justify-center z-10 bg-[#020617]">
+                    <i class="fas fa-brain text-2xl text-purple-400"></i>
+                </div>
+                <div class="flex-1 glass-panel p-8">
+                    <h3 class="text-xl font-bold mb-2">Machine Learning Engine</h3>
+                    <p class="text-slate-400 text-sm mb-4">Developed a Regression model to identify the "Prosperity Weight" of different freedom factors. Scikit-Learn was used to predict GDP growth based on 12 key variables.</p>
+                    <div class="flex gap-2">
+                        <span class="tech-tag">Scikit-Learn</span> <span class="tech-tag">Random Forest</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8 relative">
+                <div class="w-16 h-16 rounded-2xl bg-green-600/20 border border-green-500 flex items-center justify-center z-10 bg-[#020617]">
+                    <i class="fas fa-project-diagram text-2xl text-green-400"></i>
+                </div>
+                <div class="flex-1 glass-panel p-8">
+                    <h3 class="text-xl font-bold mb-2">Visualization Engineering</h3>
+                    <p class="text-slate-400 text-sm mb-4">The processed insights were mapped into a complex **Tableau** workbook featuring 15 interactive dashboards and a cohesive Story point.</p>
+                    <div class="flex gap-2">
+                        <span class="tech-tag">Tableau API</span> <span class="tech-tag">Data Storytelling</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="mt-20">
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                <i class="fas fa-code text-blue-500"></i> Logic Snippet
+            </h3>
+            <div class="bg-[#0f172a] rounded-2xl p-6 border border-slate-800 shadow-inner font-mono text-sm overflow-x-auto">
+<pre class="text-blue-300">
+<span class="text-slate-500"># Predictive analysis logic</span>
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+
+def analyze_prosperity(data):
+    features = ['Trade Freedom', 'Financial Freedom', 'Monetary Freedom']
+    model = RandomForestRegressor(n_estimators=100)
+    model.fit(data[features], data['GDP_Growth'])
+    return model.feature_importances_
+</pre>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
